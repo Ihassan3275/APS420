@@ -1,0 +1,76 @@
+> 
+> library(tidyverse)
+> 
+> data <- read.csv("WB_WDI_IT_NET_BBND_P2.csv")
+> 
+> africa_data <- data %>%
++   filter(REF_AREA_LABEL %in% african_countries)
+> 
+> africa_data$LLDC_Status <- ifelse(
++   africa_data$REF_AREA_LABEL %in% lldc_africa,
++   "LLDC",
++   "Non-LLDC"
++ )
+> 
+> africa_data <- africa_data %>%
++   select(REF_AREA_LABEL, TIME_PERIOD, OBS_VALUE, LLDC_Status)
+> 
+> colnames(africa_data) <- c("Country", "Year", "Broadband", "LLDC_Status")
+> 
+> africa_data$Year <- as.numeric(africa_data$Year)
+> africa_data$Broadband <- as.numeric(africa_data$Broadband)
+> 
+> latest_data <- africa_data %>%
++   group_by(Country) %>%
++   filter(Year == max(Year[!is.na(Broadband)])) %>%
++   ungroup()
+> 
+> t_test_result <- t.test(Broadband ~ LLDC_Status, data = latest_data)
+> print(t_test_result)
+
+        Welch Two Sample t-test
+
+data:  Broadband by LLDC_Status
+t = -2.5419, df = 32.182, p-value = 0.01604
+alternative hypothesis: true difference in means between group LLDC and group Non-LLDC is not equal to 0
+95 percent confidence interval:
+ -6.2464334 -0.6895268
+sample estimates:
+    mean in group LLDC mean in group Non-LLDC 
+             0.6792688              4.1472489 
+
+> 
+> boxplot(Broadband ~ LLDC_Status,
++         data = latest_data,
++         main = "Fixed Broadband Subscriptions (Latest Year)",
++         ylab = "Subscriptions per 100 people",
++         xlab = "Country Type")
+> 
+> time_trend <- africa_data %>%
++   group_by(Year, LLDC_Status) %>%
++   summarise(mean_broadband = mean(Broadband, na.rm = TRUE),
++             .groups = "drop")
+> 
+> ggplot(time_trend, aes(x = Year, y = mean_broadband, color = LLDC_Status)) +
++   geom_line(linewidth = 1) +
++   labs(title = "Evolution of Fixed Broadband Subscriptions in Africa",
++        y = "Mean Subscriptions per 100 people") +
++   theme_minimal()
+> 
+> time_trend <- africa_data %>%
++ +   group_by(Year, LLDC_Status) %>%
++ +   summarise(mean_broadband = mean(Broadband, na.rm = TRUE),
++ +             .groups = "drop")
+Error: unexpected '=' in:
+"+   summarise(mean_broadband = mean(Broadband, na.rm = TRUE),
++             .groups ="
+> time_trend <- africa_data %>%
++   group_by(Year, LLDC_Status) %>%
++   summarise(mean_broadband = mean(Broadband, na.rm = TRUE),
++             .groups = "drop")
+> boxplot(Broadband ~ LLDC_Status,
++         data = latest_data,
++         main = "Fixed Broadband Subscriptions (Latest Year)",
++         ylab = "Subscriptions per 100 people",
++         xlab = "Country Type")
+> 
