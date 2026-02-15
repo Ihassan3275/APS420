@@ -1,0 +1,1196 @@
+
+R version 4.5.2 (2025-10-31 ucrt) -- "[Not] Part in a Rumble"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> install.packages(c(
++   "tidyverse", "WDI", "countrycode", "sf",
++   "rworldmap", "ggpmisc", "reshape2"
++ ))
+Warning in install.packages(c("tidyverse", "WDI", "countrycode", "sf", "rworldmap",  :
+  'lib = "C:/Program Files/R/R-4.5.2/library"' is not writable
+Error in install.packages(c("tidyverse", "WDI", "countrycode", "sf", "rworldmap",  : 
+  unable to install packages
+> install.packages(c(
++   "tidyverse", "WDI", "countrycode", "sf",
++   "rworldmap", "ggpmisc", "reshape2"
++ ))
+Warning in install.packages(c("tidyverse", "WDI", "countrycode", "sf", "rworldmap",  :
+  'lib = "C:/Program Files/R/R-4.5.2/library"' is not writable
+Error in install.packages(c("tidyverse", "WDI", "countrycode", "sf", "rworldmap",  : 
+  unable to install packages
+> dir.create(Sys.getenv("R_LIBS_USER"), recursive = TRUE)
+> .libPaths(Sys.getenv("R_LIBS_USER"))
+> .libPaths()
+[1] "C:/Users/ihass/AppData/Local/R/win-library/4.5"
+[2] "C:/Program Files/R/R-4.5.2/library"            
+> install.packages(c(
++   "tidyverse", "WDI", "countrycode", "sf",
++   "rworldmap", "ggpmisc", "reshape2"
++ ))
+Installing packages into ‘C:/Users/ihass/AppData/Local/R/win-library/4.5’
+(as ‘lib’ is unspecified)
+--- Please select a CRAN mirror for use in this session ---
+also installing the dependencies ‘fastmap’, ‘sys’, ‘bit’, ‘ps’, ‘sass’, ‘later’, ‘otel’, ‘cachem’, ‘rappdirs’, ‘rematch’, ‘askpass’, ‘base64enc’, ‘bit64’, ‘prettyunits’, ‘processx’, ‘evaluate’, ‘highr’, ‘xfun’, ‘yaml’, ‘bslib’, ‘fontawesome’, ‘htmltools’, ‘jquerylib’, ‘tinytex’, ‘proxy’, ‘dotCall64’, ‘digest’, ‘htmlwidgets’, ‘lazyeval’, ‘crosstalk’, ‘promises’, ‘backports’, ‘glue’, ‘lifecycle’, ‘memoise’, ‘blob’, ‘R6’, ‘tidyselect’, ‘vctrs’, ‘withr’, ‘data.table’, ‘gtable’, ‘isoband’, ‘S7’, ‘gargle’, ‘uuid’, ‘cellranger’, ‘curl’, ‘ids’, ‘rematch2’, ‘cpp11’, ‘pkgconfig’, ‘mime’, ‘openssl’, ‘timechange’, ‘utf8’, ‘systemfonts’, ‘textshaping’, ‘clipr’, ‘crayon’, ‘vroom’, ‘tzdb’, ‘progress’, ‘callr’, ‘fs’, ‘knitr’, ‘rmarkdown’, ‘selectr’, ‘stringi’, ‘e1071’, ‘wk’, ‘spam’, ‘viridisLite’, ‘RColorBrewer’, ‘maps’, ‘gridExtra’, ‘xts’, ‘zoo’, ‘farver’, ‘labeling’, ‘SparseM’, ‘MatrixModels’, ‘mvtnorm’, ‘TH.data’, ‘sandwich’, ‘kernlab’, ‘plotly’, ‘segmented’, ‘bitops’, ‘broom’, ‘conflicted’, ‘cli’, ‘dbplyr’, ‘dplyr’, ‘dtplyr’, ‘forcats’, ‘ggplot2’, ‘googledrive’, ‘googlesheets4’, ‘haven’, ‘hms’, ‘httr’, ‘jsonlite’, ‘lubridate’, ‘magrittr’, ‘modelr’, ‘pillar’, ‘purrr’, ‘ragg’, ‘readr’, ‘readxl’, ‘reprex’, ‘rlang’, ‘rstudioapi’, ‘rvest’, ‘stringr’, ‘tibble’, ‘tidyr’, ‘xml2’, ‘classInt’, ‘DBI’, ‘s2’, ‘units’, ‘Rcpp’, ‘sp’, ‘fields’, ‘raster’, ‘terra’, ‘ggpp’, ‘scales’, ‘generics’, ‘confintr’, ‘polynom’, ‘quantreg’, ‘lmodel2’, ‘splus2R’, ‘multcomp’, ‘multcompView’, ‘mixtools’, ‘plyr’, ‘caTools’
+
+
+  There are binary versions available but the source versions are later:
+       binary source needs_compilation
+later   1.4.5  1.4.6              TRUE
+dbplyr  2.5.1  2.5.2             FALSE
+httr    1.4.7  1.4.8             FALSE
+sp      2.2-0  2.2-1              TRUE
+
+  Binaries will be installed
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/fastmap_1.2.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/sys_3.4.3.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/bit_4.6.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/ps_1.9.1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/sass_0.4.10.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/later_1.4.5.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/otel_0.2.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/cachem_1.1.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/rappdirs_0.3.4.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/rematch_2.0.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/askpass_1.2.1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/base64enc_0.1-6.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/bit64_4.6.0-1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/prettyunits_1.2.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/processx_3.8.6.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/evaluate_1.0.5.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/highr_0.11.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/xfun_0.56.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/yaml_2.3.12.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/bslib_0.10.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/fontawesome_0.5.3.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/htmltools_0.5.9.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/jquerylib_0.1.4.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/tinytex_0.58.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/proxy_0.4-29.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/dotCall64_1.2.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/digest_0.6.39.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/htmlwidgets_1.6.4.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/lazyeval_0.2.2.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/crosstalk_1.2.2.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/promises_1.5.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/backports_1.5.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/glue_1.8.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/lifecycle_1.0.5.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/memoise_2.0.1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/blob_1.3.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/R6_2.6.1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/tidyselect_1.2.1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/vctrs_0.7.1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/withr_3.0.2.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/data.table_1.18.2.1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/gtable_0.3.6.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/isoband_0.3.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/S7_0.2.1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/gargle_1.6.1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/uuid_1.2-2.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/cellranger_1.1.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/curl_7.0.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/ids_1.0.1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/rematch2_2.1.2.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/cpp11_0.5.3.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/pkgconfig_2.0.3.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/mime_0.13.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/openssl_2.3.4.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/timechange_0.4.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/utf8_1.2.6.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/systemfonts_1.3.1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/textshaping_1.0.4.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/clipr_0.8.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/crayon_1.5.3.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/vroom_1.7.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/tzdb_0.5.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/progress_1.2.3.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/callr_3.7.6.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/fs_1.6.6.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/knitr_1.51.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/rmarkdown_2.30.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/selectr_0.5-1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/stringi_1.8.7.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/e1071_1.7-17.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/wk_0.9.5.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/spam_2.11-3.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/viridisLite_0.4.3.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/RColorBrewer_1.1-3.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/maps_3.4.3.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/gridExtra_2.3.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/xts_0.14.1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/zoo_1.8-15.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/farver_2.1.2.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/labeling_0.4.3.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/SparseM_1.84-2.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/MatrixModels_0.5-4.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/mvtnorm_1.3-3.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/TH.data_1.1-5.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/sandwich_3.1-1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/kernlab_0.9-33.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/plotly_4.12.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/segmented_2.2-1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/bitops_1.0-9.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/broom_1.0.12.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/conflicted_1.2.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/cli_3.6.5.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/dplyr_1.2.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/dtplyr_1.3.3.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/forcats_1.0.1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/ggplot2_4.0.2.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/googledrive_2.1.2.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/googlesheets4_1.1.2.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/haven_2.5.5.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/hms_1.1.4.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/jsonlite_2.0.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/lubridate_1.9.5.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/magrittr_2.0.4.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/modelr_0.1.11.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/pillar_1.11.1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/purrr_1.2.1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/ragg_1.5.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/readr_2.1.6.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/readxl_1.4.5.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/reprex_2.1.1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/rlang_1.1.7.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/rstudioapi_0.18.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/rvest_1.0.5.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/stringr_1.6.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/tibble_3.3.1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/tidyr_1.3.2.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/xml2_1.5.2.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/classInt_0.4-11.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/DBI_1.2.3.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/s2_1.1.9.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/units_1.0-0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/Rcpp_1.1.1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/sp_2.2-0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/fields_17.1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/raster_3.6-32.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/terra_1.8-93.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/ggpp_0.6.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/scales_1.4.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/generics_0.1.4.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/confintr_1.0.2.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/polynom_1.4-1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/quantreg_6.1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/lmodel2_1.7-4.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/splus2R_1.3-5.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/multcomp_1.4-29.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/multcompView_0.1-10.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/mixtools_2.0.0.1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/plyr_1.8.9.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/caTools_1.18.3.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/tidyverse_2.0.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/WDI_2.7.9.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/countrycode_1.6.1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/sf_1.0-24.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/rworldmap_1.3-8.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/ggpmisc_0.6.3.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/reshape2_1.4.5.zip'
+package ‘fastmap’ successfully unpacked and MD5 sums checked
+package ‘sys’ successfully unpacked and MD5 sums checked
+package ‘bit’ successfully unpacked and MD5 sums checked
+package ‘ps’ successfully unpacked and MD5 sums checked
+package ‘sass’ successfully unpacked and MD5 sums checked
+package ‘later’ successfully unpacked and MD5 sums checked
+package ‘otel’ successfully unpacked and MD5 sums checked
+package ‘cachem’ successfully unpacked and MD5 sums checked
+package ‘rappdirs’ successfully unpacked and MD5 sums checked
+package ‘rematch’ successfully unpacked and MD5 sums checked
+package ‘askpass’ successfully unpacked and MD5 sums checked
+package ‘base64enc’ successfully unpacked and MD5 sums checked
+package ‘bit64’ successfully unpacked and MD5 sums checked
+package ‘prettyunits’ successfully unpacked and MD5 sums checked
+package ‘processx’ successfully unpacked and MD5 sums checked
+package ‘evaluate’ successfully unpacked and MD5 sums checked
+package ‘highr’ successfully unpacked and MD5 sums checked
+package ‘xfun’ successfully unpacked and MD5 sums checked
+package ‘yaml’ successfully unpacked and MD5 sums checked
+package ‘bslib’ successfully unpacked and MD5 sums checked
+package ‘fontawesome’ successfully unpacked and MD5 sums checked
+package ‘htmltools’ successfully unpacked and MD5 sums checked
+package ‘jquerylib’ successfully unpacked and MD5 sums checked
+package ‘tinytex’ successfully unpacked and MD5 sums checked
+package ‘proxy’ successfully unpacked and MD5 sums checked
+package ‘dotCall64’ successfully unpacked and MD5 sums checked
+package ‘digest’ successfully unpacked and MD5 sums checked
+package ‘htmlwidgets’ successfully unpacked and MD5 sums checked
+package ‘lazyeval’ successfully unpacked and MD5 sums checked
+package ‘crosstalk’ successfully unpacked and MD5 sums checked
+package ‘promises’ successfully unpacked and MD5 sums checked
+package ‘backports’ successfully unpacked and MD5 sums checked
+package ‘glue’ successfully unpacked and MD5 sums checked
+package ‘lifecycle’ successfully unpacked and MD5 sums checked
+package ‘memoise’ successfully unpacked and MD5 sums checked
+package ‘blob’ successfully unpacked and MD5 sums checked
+package ‘R6’ successfully unpacked and MD5 sums checked
+package ‘tidyselect’ successfully unpacked and MD5 sums checked
+package ‘vctrs’ successfully unpacked and MD5 sums checked
+package ‘withr’ successfully unpacked and MD5 sums checked
+package ‘data.table’ successfully unpacked and MD5 sums checked
+package ‘gtable’ successfully unpacked and MD5 sums checked
+package ‘isoband’ successfully unpacked and MD5 sums checked
+package ‘S7’ successfully unpacked and MD5 sums checked
+package ‘gargle’ successfully unpacked and MD5 sums checked
+package ‘uuid’ successfully unpacked and MD5 sums checked
+package ‘cellranger’ successfully unpacked and MD5 sums checked
+package ‘curl’ successfully unpacked and MD5 sums checked
+package ‘ids’ successfully unpacked and MD5 sums checked
+package ‘rematch2’ successfully unpacked and MD5 sums checked
+package ‘cpp11’ successfully unpacked and MD5 sums checked
+package ‘pkgconfig’ successfully unpacked and MD5 sums checked
+package ‘mime’ successfully unpacked and MD5 sums checked
+package ‘openssl’ successfully unpacked and MD5 sums checked
+package ‘timechange’ successfully unpacked and MD5 sums checked
+package ‘utf8’ successfully unpacked and MD5 sums checked
+package ‘systemfonts’ successfully unpacked and MD5 sums checked
+package ‘textshaping’ successfully unpacked and MD5 sums checked
+package ‘clipr’ successfully unpacked and MD5 sums checked
+package ‘crayon’ successfully unpacked and MD5 sums checked
+package ‘vroom’ successfully unpacked and MD5 sums checked
+package ‘tzdb’ successfully unpacked and MD5 sums checked
+package ‘progress’ successfully unpacked and MD5 sums checked
+package ‘callr’ successfully unpacked and MD5 sums checked
+package ‘fs’ successfully unpacked and MD5 sums checked
+package ‘knitr’ successfully unpacked and MD5 sums checked
+package ‘rmarkdown’ successfully unpacked and MD5 sums checked
+package ‘selectr’ successfully unpacked and MD5 sums checked
+package ‘stringi’ successfully unpacked and MD5 sums checked
+package ‘e1071’ successfully unpacked and MD5 sums checked
+package ‘wk’ successfully unpacked and MD5 sums checked
+package ‘spam’ successfully unpacked and MD5 sums checked
+package ‘viridisLite’ successfully unpacked and MD5 sums checked
+package ‘RColorBrewer’ successfully unpacked and MD5 sums checked
+package ‘maps’ successfully unpacked and MD5 sums checked
+package ‘gridExtra’ successfully unpacked and MD5 sums checked
+package ‘xts’ successfully unpacked and MD5 sums checked
+package ‘zoo’ successfully unpacked and MD5 sums checked
+package ‘farver’ successfully unpacked and MD5 sums checked
+package ‘labeling’ successfully unpacked and MD5 sums checked
+package ‘SparseM’ successfully unpacked and MD5 sums checked
+package ‘MatrixModels’ successfully unpacked and MD5 sums checked
+package ‘mvtnorm’ successfully unpacked and MD5 sums checked
+package ‘TH.data’ successfully unpacked and MD5 sums checked
+package ‘sandwich’ successfully unpacked and MD5 sums checked
+package ‘kernlab’ successfully unpacked and MD5 sums checked
+package ‘plotly’ successfully unpacked and MD5 sums checked
+package ‘segmented’ successfully unpacked and MD5 sums checked
+package ‘bitops’ successfully unpacked and MD5 sums checked
+package ‘broom’ successfully unpacked and MD5 sums checked
+package ‘conflicted’ successfully unpacked and MD5 sums checked
+package ‘cli’ successfully unpacked and MD5 sums checked
+package ‘dplyr’ successfully unpacked and MD5 sums checked
+package ‘dtplyr’ successfully unpacked and MD5 sums checked
+package ‘forcats’ successfully unpacked and MD5 sums checked
+package ‘ggplot2’ successfully unpacked and MD5 sums checked
+package ‘googledrive’ successfully unpacked and MD5 sums checked
+package ‘googlesheets4’ successfully unpacked and MD5 sums checked
+package ‘haven’ successfully unpacked and MD5 sums checked
+package ‘hms’ successfully unpacked and MD5 sums checked
+package ‘jsonlite’ successfully unpacked and MD5 sums checked
+package ‘lubridate’ successfully unpacked and MD5 sums checked
+package ‘magrittr’ successfully unpacked and MD5 sums checked
+package ‘modelr’ successfully unpacked and MD5 sums checked
+package ‘pillar’ successfully unpacked and MD5 sums checked
+package ‘purrr’ successfully unpacked and MD5 sums checked
+package ‘ragg’ successfully unpacked and MD5 sums checked
+package ‘readr’ successfully unpacked and MD5 sums checked
+package ‘readxl’ successfully unpacked and MD5 sums checked
+package ‘reprex’ successfully unpacked and MD5 sums checked
+package ‘rlang’ successfully unpacked and MD5 sums checked
+package ‘rstudioapi’ successfully unpacked and MD5 sums checked
+package ‘rvest’ successfully unpacked and MD5 sums checked
+package ‘stringr’ successfully unpacked and MD5 sums checked
+package ‘tibble’ successfully unpacked and MD5 sums checked
+package ‘tidyr’ successfully unpacked and MD5 sums checked
+package ‘xml2’ successfully unpacked and MD5 sums checked
+package ‘classInt’ successfully unpacked and MD5 sums checked
+package ‘DBI’ successfully unpacked and MD5 sums checked
+package ‘s2’ successfully unpacked and MD5 sums checked
+package ‘units’ successfully unpacked and MD5 sums checked
+package ‘Rcpp’ successfully unpacked and MD5 sums checked
+package ‘sp’ successfully unpacked and MD5 sums checked
+package ‘fields’ successfully unpacked and MD5 sums checked
+package ‘raster’ successfully unpacked and MD5 sums checked
+package ‘terra’ successfully unpacked and MD5 sums checked
+package ‘ggpp’ successfully unpacked and MD5 sums checked
+package ‘scales’ successfully unpacked and MD5 sums checked
+package ‘generics’ successfully unpacked and MD5 sums checked
+package ‘confintr’ successfully unpacked and MD5 sums checked
+package ‘polynom’ successfully unpacked and MD5 sums checked
+package ‘quantreg’ successfully unpacked and MD5 sums checked
+package ‘lmodel2’ successfully unpacked and MD5 sums checked
+package ‘splus2R’ successfully unpacked and MD5 sums checked
+package ‘multcomp’ successfully unpacked and MD5 sums checked
+package ‘multcompView’ successfully unpacked and MD5 sums checked
+package ‘mixtools’ successfully unpacked and MD5 sums checked
+package ‘plyr’ successfully unpacked and MD5 sums checked
+package ‘caTools’ successfully unpacked and MD5 sums checked
+package ‘tidyverse’ successfully unpacked and MD5 sums checked
+package ‘WDI’ successfully unpacked and MD5 sums checked
+package ‘countrycode’ successfully unpacked and MD5 sums checked
+package ‘sf’ successfully unpacked and MD5 sums checked
+package ‘rworldmap’ successfully unpacked and MD5 sums checked
+package ‘ggpmisc’ successfully unpacked and MD5 sums checked
+package ‘reshape2’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+        C:\Users\ihass\AppData\Local\Temp\Rtmpo5pV6j\downloaded_packages
+installing the source packages ‘dbplyr’, ‘httr’
+
+trying URL 'https://cloud.r-project.org/src/contrib/dbplyr_2.5.2.tar.gz'
+trying URL 'https://cloud.r-project.org/src/contrib/httr_1.4.8.tar.gz'
+* installing *source* package 'dbplyr' ...
+** this is package 'dbplyr' version '2.5.2'
+** package 'dbplyr' successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (dbplyr)
+* installing *source* package 'httr' ...
+** this is package 'httr' version '1.4.8'
+** package 'httr' successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (httr)
+
+The downloaded source packages are in
+        ‘C:\Users\ihass\AppData\Local\Temp\Rtmpo5pV6j\downloaded_packages’
+> install.packages(c(
++  "Rtools", "rnaturalearth",
++ "tidyverse", "plotly", "RColorBrewer"
++ "WDI", "countrycode", "sf", "gridExtra",
+Error: unexpected string constant in:
+""tidyverse", "plotly", "RColorBrewer"
+"WDI""
+> "rworldmap", "ggpmisc", "reshape2", "gganimate",
+Error: unexpected ',' in ""rworldmap","
+> "gifski"
+[1] "gifski"
+> ))
+Error: unexpected ')' in ")"
+> install.packages(c(
++  "Rtools", "rnaturalearth",
++ "tidyverse", "plotly", "RColorBrewer",
++ "WDI", "countrycode", "sf", "gridExtra",
++ "rworldmap", "ggpmisc", "reshape2", "gganimate",
++ "gifski"
++ ))
+Installing packages into ‘C:/Users/ihass/AppData/Local/R/win-library/4.5’
+(as ‘lib’ is unspecified)
+also installing the dependencies ‘lpSolve’, ‘transformr’, ‘tweenr’
+
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/lpSolve_5.6.23.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/transformr_0.1.5.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/tweenr_2.0.3.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/rnaturalearth_1.2.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/tidyverse_2.0.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/plotly_4.12.0.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/RColorBrewer_1.1-3.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/WDI_2.7.9.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/countrycode_1.6.1.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/sf_1.0-24.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/gridExtra_2.3.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/rworldmap_1.3-8.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/ggpmisc_0.6.3.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/reshape2_1.4.5.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/gganimate_1.0.11.zip'
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/gifski_1.32.0-2.zip'
+Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
+  download of package ‘sf’ failed
+package ‘lpSolve’ successfully unpacked and MD5 sums checked
+package ‘transformr’ successfully unpacked and MD5 sums checked
+package ‘tweenr’ successfully unpacked and MD5 sums checked
+package ‘rnaturalearth’ successfully unpacked and MD5 sums checked
+package ‘tidyverse’ successfully unpacked and MD5 sums checked
+package ‘plotly’ successfully unpacked and MD5 sums checked
+package ‘RColorBrewer’ successfully unpacked and MD5 sums checked
+package ‘WDI’ successfully unpacked and MD5 sums checked
+package ‘countrycode’ successfully unpacked and MD5 sums checked
+package ‘gridExtra’ successfully unpacked and MD5 sums checked
+package ‘rworldmap’ successfully unpacked and MD5 sums checked
+package ‘ggpmisc’ successfully unpacked and MD5 sums checked
+package ‘reshape2’ successfully unpacked and MD5 sums checked
+package ‘gganimate’ successfully unpacked and MD5 sums checked
+package ‘gifski’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+        C:\Users\ihass\AppData\Local\Temp\Rtmpo5pV6j\downloaded_packages
+Warning messages:
+1: package ‘Rtools’ is not available for this version of R
+
+A version of this package for your version of R might be available elsewhere,
+see the ideas at
+https://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-packages 
+2: In download.file(urls, destfiles, "libcurl", mode = "wb", ...) :
+  URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/sf_1.0-24.zip': Timeout of 60 seconds was reached
+3: In download.file(urls, destfiles, "libcurl", mode = "wb", ...) :
+  some files were not downloaded
+> 
+> library(tidyverse)
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.2.0     ✔ readr     2.1.6
+✔ forcats   1.0.1     ✔ stringr   1.6.0
+✔ ggplot2   4.0.2     ✔ tibble    3.3.1
+✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+✔ purrr     1.2.1     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+> library(countrycode)
+> library(rnaturalearth)
+> 
+> # Load CSV
+> gdp_raw <- read_csv("WB_WDI_NY_GDP_PCAP_CD.csv")
+
+[1mindexing[0m [34mWB_WDI_NY_GDP_PCAP_CD.csv[0m [===========-------------] [32m1.52GB/s[0m, eta: [36m 0s[0m
+[1mindexing[0m [34mWB_WDI_NY_GDP_PCAP_CD.csv[0m [======================] [32m663.50MB/s[0m, eta: [36m 0s[0m
+                                                                                                                   
+Rows: 14561 Columns: 43
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (39): STRUCTURE, STRUCTURE_ID, ACTION, FREQ, REF_AREA, INDICATOR, SEX, A...
+dbl  (4): TIME_PERIOD, DECIMALS, UNIT_MULT, OBS_VALUE
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> 
+> # Keep only relevant columns
+> gdp <- gdp_raw %>%
++   select(
++     iso3 = REF_AREA,
++     country = REF_AREA_LABEL,
++     year = TIME_PERIOD,
++     gdp_pc = OBS_VALUE
++   ) %>%
++   mutate(year = as.numeric(year))
+> library(tidyverse)
+> library(countrycode)
+> library(rnaturalearth)
+> 
+> # Load CSV
+> gdp_raw <- read_csv("WB_WDI_NY_GDP_PCAP_CD.csv")
+
+[1mindexing[0m [34mWB_WDI_NY_GDP_PCAP_CD.csv[0m [===============---------] [32m2.15GB/s[0m, eta: [36m 0s[0m
+[1mindexing[0m [34mWB_WDI_NY_GDP_PCAP_CD.csv[0m [======================] [32m496.40MB/s[0m, eta: [36m 0s[0m
+                                                                                                                   
+Rows: 14561 Columns: 43
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (39): STRUCTURE, STRUCTURE_ID, ACTION, FREQ, REF_AREA, INDICATOR, SEX, A...
+dbl  (4): TIME_PERIOD, DECIMALS, UNIT_MULT, OBS_VALUE
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> 
+> # Keep only relevant columns
+> gdp <- gdp_raw %>%
++   select(
++     iso3 = REF_AREA,
++     country = REF_AREA_LABEL,
++     year = TIME_PERIOD,
++     gdp_pc = OBS_VALUE
++   ) %>%
++   mutate(year = as.numeric(year))
+> 
+> library(sf)
+Linking to GEOS 3.13.1, GDAL 3.11.4, PROJ 9.7.0; sf_use_s2() is TRUE
+> 
+> world <- ne_countries(scale = "medium", returnclass = "sf")
+The rnaturalearthdata package needs to be installed.
+Install the rnaturalearthdata package? 
+
+1: Yes
+2: No
+
+Selection: 
+Enter an item from the menu, or 0 to exit
+Selection: lat_data <- world %>%
+Enter an item from the menu, or 0 to exit
+Selection:   st_drop_geometry() %>%
+Enter an item from the menu, or 0 to exit
+Selection:   select(iso3 = iso_a3, latitude)
+Enter an item from the menu, or 0 to exit
+Selection: 0
+Error in `install_rnaturalearthdata()`:
+! The rnaturalearthdata package is necessary for that method.
+Run `rlang::last_trace()` to see where the error occurred.
+> library(tidyverse)
+> library(countrycode)
+> library(rnaturalearth)
+> 
+> # Load CSV
+> gdp_raw <- read_csv("WB_WDI_NY_GDP_PCAP_CD.csv")
+
+[1mindexing[0m [34mWB_WDI_NY_GDP_PCAP_CD.csv[0m [==============----------] [32m2.15GB/s[0m, eta: [36m 0s[0m
+[1mindexing[0m [34mWB_WDI_NY_GDP_PCAP_CD.csv[0m [======================] [32m747.24MB/s[0m, eta: [36m 0s[0m
+                                                                                                                   
+Rows: 14561 Columns: 43
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (39): STRUCTURE, STRUCTURE_ID, ACTION, FREQ, REF_AREA, INDICATOR, SEX, A...
+dbl  (4): TIME_PERIOD, DECIMALS, UNIT_MULT, OBS_VALUE
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> 
+> # Keep only relevant columns
+> gdp <- gdp_raw %>%
++   select(
++     iso3 = REF_AREA,
++     country = REF_AREA_LABEL,
++     year = TIME_PERIOD,
++     gdp_pc = OBS_VALUE
++   ) %>%
++   mutate(year = as.numeric(year))
+> 
+> library(sf)
+> 
+> world <- ne_countries(scale = "medium", returnclass = "sf")
+The rnaturalearthdata package needs to be installed.
+Install the rnaturalearthdata package? 
+
+1: Yes
+2: No
+
+Selection: 
+Enter an item from the menu, or 0 to exit
+Selection: lat_data <- world %>%
+Enter an item from the menu, or 0 to exit
+Selection:   st_drop_geometry() %>%
+Enter an item from the menu, or 0 to exit
+Selection:   select(iso3 = iso_a3, latitude)
+Enter an item from the menu, or 0 to exit
+Selection: 
+Enter an item from the menu, or 0 to exit
+Selection: gdp <- gdp %>%
+Enter an item from the menu, or 0 to exit
+Selection:   left_join(lat_data, by = "iso3")
+Enter an item from the menu, or 0 to exit
+Selection: 
+Enter an item from the menu, or 0 to exit
+Selection: yes
+Enter an item from the menu, or 0 to exit
+Selection: 1
+Installing the rnaturalearthdata package.
+Installing package into ‘C:/Users/ihass/AppData/Local/R/win-library/4.5’
+(as ‘lib’ is unspecified)
+Error in `value[[3L]]()`:
+! Failed to install the rnaturalearthdata package. Please try installing
+  the package for yourself using the following command:
+  `install.packages("rnaturalearthdata")`
+Run `rlang::last_trace()` to see where the error occurred.
+> install.packages("maps")
+Installing package into ‘C:/Users/ihass/AppData/Local/R/win-library/4.5’
+(as ‘lib’ is unspecified)
+trying URL 'https://cloud.r-project.org/bin/windows/contrib/4.5/maps_3.4.3.zip'
+Content type 'application/zip' length 3096074 bytes (3.0 MB)
+downloaded 3.0 MB
+
+package ‘maps’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+        C:\Users\ihass\AppData\Local\Temp\Rtmpo5pV6j\downloaded_packages
+> library(maps)
+
+Attaching package: ‘maps’
+
+The following object is masked from ‘package:purrr’:
+
+    map
+
+> library(tidyverse)
+> library(countrycode)
+> library(rnaturalearth)
+> 
+> # Load CSV
+> gdp_raw <- read_csv("WB_WDI_NY_GDP_PCAP_CD.csv")
+
+[1mindexing[0m [34mWB_WDI_NY_GDP_PCAP_CD.csv[0m [================--------] [32m2.15GB/s[0m, eta: [36m 0s[0m
+[1mindexing[0m [34mWB_WDI_NY_GDP_PCAP_CD.csv[0m [======================] [32m759.73MB/s[0m, eta: [36m 0s[0m
+                                                                                                                   
+Rows: 14561 Columns: 43
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (39): STRUCTURE, STRUCTURE_ID, ACTION, FREQ, REF_AREA, INDICATOR, SEX, A...
+dbl  (4): TIME_PERIOD, DECIMALS, UNIT_MULT, OBS_VALUE
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> 
+> # Keep only relevant columns
+> gdp <- gdp_raw %>%
++   select(
++     iso3 = REF_AREA,
++     country = REF_AREA_LABEL,
++     year = TIME_PERIOD,
++     gdp_pc = OBS_VALUE
++   ) %>%
++   mutate(year = as.numeric(year))
+> 
+> world_map <- map_data("world")
+> 
+> country_centers <- world_map %>%
++   group_by(region) %>%
++   summarise(latitude = mean(lat, na.rm = TRUE))
+> 
+> country_centers <- country_centers %>%
++   mutate(
++     iso3 = countrycode(region, "country.name", "iso3c")
++   ) %>%
++   select(iso3, latitude)
+> 
+> gdp <- gdp %>%
++   left_join(country_centers, by = "iso3")
+> 
+> 
+> summary(gdp$latitude)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+-44.841   3.471  15.382  17.705  35.737  72.513    3276 
+> table(q1$year)
+Error: object 'q1' not found
+> > table(q1$year)
+Error: unexpected '>' in ">"
+> Error: object 'q1' not foundls()
+Error: unexpected string constant in "Error: object 'q1'"
+> ls()
+[1] "country_centers" "gdp"             "gdp_raw"         "world_map"      
+> gdp <- gdp_raw %>%
++   select(
++     iso3 = REF_AREA,
++     country = REF_AREA_LABEL,
++     year = TIME_PERIOD,
++     gdp_pc = OBS_VALUE
++   ) %>%
++   mutate(year = as.numeric(year))
+> gdp <- gdp %>%
++   mutate(continent = countrycode(iso3, "iso3c", "continent"))
+> table(gdp$continent)
+
+  Africa Americas     Asia   Europe  Oceania 
+    3202     2516     2591     2240      978 
+> gdp <- gdp %>%
++   mutate(global_south = case_when(
++     continent %in% c("Africa", "South America") ~ "South",
++     continent %in% c("Europe", "North America") ~ "North",
++     continent == "Asia" ~ "South",  # Most of Asia classified Global South
++     continent == "Oceania" ~ "North",
++     TRUE ~ NA_character_
++   ))
+> table(q1$year)
+Error: object 'q1' not found
+> table(q1$year)
+Error: object 'q1' not found
+> library(tidyverse)
+> library(countrycode)
+> library(rnaturalearth)
+> 
+> # Load CSV
+> gdp_raw <- read_csv("WB_WDI_NY_GDP_PCAP_CD.csv")
+
+[1mindexing[0m [34mWB_WDI_NY_GDP_PCAP_CD.csv[0m [===============---------] [32m2.15GB/s[0m, eta: [36m 0s[0m
+[1mindexing[0m [34mWB_WDI_NY_GDP_PCAP_CD.csv[0m [======================] [32m762.96MB/s[0m, eta: [36m 0s[0m
+                                                                                                                   
+Rows: 14561 Columns: 43
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (39): STRUCTURE, STRUCTURE_ID, ACTION, FREQ, REF_AREA, INDICATOR, SEX, A...
+dbl  (4): TIME_PERIOD, DECIMALS, UNIT_MULT, OBS_VALUE
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> 
+> # Keep only relevant columns
+> gdp <- gdp_raw %>%
++   select(
++     iso3 = REF_AREA,
++     country = REF_AREA_LABEL,
++     year = TIME_PERIOD,
++     gdp_pc = OBS_VALUE
++   ) %>%
++   mutate(year = as.numeric(year))
+> 
+> world_map <- map_data("world")
+> 
+> country_centers <- world_map %>%
++   group_by(region) %>%
++   summarise(latitude = mean(lat, na.rm = TRUE))
+> 
+> country_centers <- country_centers %>%
++   mutate(
++     iso3 = countrycode(region, "country.name", "iso3c")
++   ) %>%
++   select(iso3, latitude)
+> 
+> gdp <- gdp %>%
++   left_join(country_centers, by = "iso3")
+> 
+> gdp <- gdp %>%
++   mutate(global_south = ifelse(latitude < 0, "South", "North"))
+> 
+> q1 <- gdp %>%
++   filter(year %in% c(1960, 1980, 2000, 2019)) %>%
++   filter(!is.na(gdp_pc), !is.na(global_south))
+> 
+> q1 <- gdp %>%
++   filter(year %in% c(1960, 1980, 2000, 2019)) %>%
++   filter(!is.na(gdp_pc), !is.na(global_south))
+> 
+> gdp <- gdp_raw %>%
++   select(
++     iso3 = REF_AREA,
++     country = REF_AREA_LABEL,
++     year = TIME_PERIOD,
++     gdp_pc = OBS_VALUE
++   ) %>%
++   mutate(year = as.numeric(year))
+> 
+> gdp <- gdp %>%
++   mutate(continent = countrycode(iso3, "iso3c", "continent"))
+> 
+> gdp <- gdp %>%
++   mutate(global_south = case_when(
++     continent %in% c("Africa", "South America") ~ "South",
++     continent %in% c("Europe", "North America") ~ "North",
++     continent == "Asia" ~ "South",  # Most of Asia classified Global South
++     continent == "Oceania" ~ "North",
++     TRUE ~ NA_character_
++   ))
+> 
+> q1 <- gdp %>%
++   filter(year %in% c(1960, 1980, 2000, 2019)) %>%
++   filter(!is.na(gdp_pc), !is.na(global_south))
+> 
+> ggplot(q1, aes(x = global_south, y = gdp_pc)) +
++   geom_boxplot() +
++   scale_y_log10() +
++   facet_wrap(~year) +
++   labs(
++     title = "GDP per Capita: Global North vs South",
++     x = "",
++     y = "GDP per Capita (log scale)"
++   )
+> 
+> library(tidyverse)
+> library(countrycode)
+> library(rnaturalearth)
+> 
+> # Load CSV
+> gdp_raw <- read_csv("WB_WDI_NY_GDP_PCAP_CD.csv")
+
+[1mindexing[0m [34mWB_WDI_NY_GDP_PCAP_CD.csv[0m [======================--] [32m2.15GB/s[0m, eta: [36m 0s[0m
+[1mindexing[0m [34mWB_WDI_NY_GDP_PCAP_CD.csv[0m [========================] [32m1.35GB/s[0m, eta: [36m 0s[0m
+                                                                                                                   
+Rows: 14561 Columns: 43
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (39): STRUCTURE, STRUCTURE_ID, ACTION, FREQ, REF_AREA, INDICATOR, SEX, A...
+dbl  (4): TIME_PERIOD, DECIMALS, UNIT_MULT, OBS_VALUE
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> 
+> # Keep only relevant columns
+> gdp <- gdp_raw %>%
++   select(
++     iso3 = REF_AREA,
++     country = REF_AREA_LABEL,
++     year = TIME_PERIOD,
++     gdp_pc = OBS_VALUE
++   ) %>%
++   mutate(year = as.numeric(year))
+> 
+> world_map <- map_data("world")
+> 
+> country_centers <- world_map %>%
++   group_by(region) %>%
++   summarise(latitude = mean(lat, na.rm = TRUE))
+> 
+> country_centers <- country_centers %>%
++   mutate(
++     iso3 = countrycode(region, "country.name", "iso3c")
++   ) %>%
++   select(iso3, latitude)
+> 
+> gdp <- gdp %>%
++   left_join(country_centers, by = "iso3")
+> 
+> gdp <- gdp %>%
++   mutate(global_south = ifelse(latitude < 0, "South", "North"))
+> 
+> q1 <- gdp %>%
++   filter(year %in% c(1960, 1980, 2000, 2019)) %>%
++   filter(!is.na(gdp_pc), !is.na(global_south))
+> 
+> q1 <- gdp %>%
++   filter(year %in% c(1960, 1980, 2000, 2019)) %>%
++   filter(!is.na(gdp_pc), !is.na(global_south))
+> 
+> gdp <- gdp_raw %>%
++   select(
++     iso3 = REF_AREA,
++     country = REF_AREA_LABEL,
++     year = TIME_PERIOD,
++     gdp_pc = OBS_VALUE
++   ) %>%
++   mutate(year = as.numeric(year))
+> 
+> gdp <- gdp %>%
++   mutate(continent = countrycode(iso3, "iso3c", "continent"))
+> 
+> gdp <- gdp %>%
++   mutate(global_south = case_when(
++     continent %in% c("Africa", "South America") ~ "South",
++     continent %in% c("Europe", "North America") ~ "North",
++     continent == "Asia" ~ "South",  # Most of Asia classified Global South
++     continent == "Oceania" ~ "North",
++     TRUE ~ NA_character_
++   ))
+> 
+> q1 <- gdp %>%
++   filter(year %in% c(1960, 1980, 2000, 2019)) %>%
++   filter(!is.na(gdp_pc), !is.na(global_south))
+> 
+> ggplot(q1, aes(x = global_south, y = gdp_pc)) +
++   geom_boxplot() +
++   scale_y_log10() +
++   facet_wrap(~year) +
++   labs(
++     title = "GDP per Capita: Global North vs South",
++     x = "",
++     y = "GDP per Capita (log scale)"
++   )
+> 
+> q1 %>%
++   group_by(year) %>%
++   summarise(
++     p_value = t.test(gdp_pc ~ global_south)$p.value
++   )
+# A tibble: 4 × 2
+   year     p_value
+  <dbl>       <dbl>
+1  1960 0.000000288
+2  1980 0.00308    
+3  2000 0.0000105  
+4  2019 0.00000190 
+> 
+> table(q1$year)
+
+1960 1980 2000 2019 
+  80  125  163  164 
+> library(tidyverse)
+> library(countrycode)
+> library(rnaturalearth)
+> 
+> # Load CSV
+> gdp_raw <- read_csv("WB_WDI_NY_GDP_PCAP_CD.csv")
+
+[1mindexing[0m [34mWB_WDI_NY_GDP_PCAP_CD.csv[0m [===============---------] [32m2.15GB/s[0m, eta: [36m 0s[0m
+[1mindexing[0m [34mWB_WDI_NY_GDP_PCAP_CD.csv[0m [======================] [32m993.20MB/s[0m, eta: [36m 0s[0m
+                                                                                                                   
+Rows: 14561 Columns: 43
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (39): STRUCTURE, STRUCTURE_ID, ACTION, FREQ, REF_AREA, INDICATOR, SEX, A...
+dbl  (4): TIME_PERIOD, DECIMALS, UNIT_MULT, OBS_VALUE
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> 
+> # Keep only relevant columns
+> gdp <- gdp_raw %>%
++   select(
++     iso3 = REF_AREA,
++     country = REF_AREA_LABEL,
++     year = TIME_PERIOD,
++     gdp_pc = OBS_VALUE
++   ) %>%
++   mutate(year = as.numeric(year))
+> 
+> world_map <- map_data("world")
+> 
+> country_centers <- world_map %>%
++   group_by(region) %>%
++   summarise(latitude = mean(lat, na.rm = TRUE))
+> 
+> country_centers <- country_centers %>%
++   mutate(
++     iso3 = countrycode(region, "country.name", "iso3c")
++   ) %>%
++   select(iso3, latitude)
+> 
+> gdp <- gdp %>%
++   left_join(country_centers, by = "iso3")
+> 
+> gdp <- gdp %>%
++   mutate(global_south = ifelse(latitude < 0, "South", "North"))
+> 
+> q1 <- gdp %>%
++   filter(year %in% c(1960, 1980, 2000, 2019)) %>%
++   filter(!is.na(gdp_pc), !is.na(global_south))
+> 
+> q1 <- gdp %>%
++   filter(year %in% c(1960, 1980, 2000, 2019)) %>%
++   filter(!is.na(gdp_pc), !is.na(global_south))
+> 
+> gdp <- gdp_raw %>%
++   select(
++     iso3 = REF_AREA,
++     country = REF_AREA_LABEL,
++     year = TIME_PERIOD,
++     gdp_pc = OBS_VALUE
++   ) %>%
++   mutate(year = as.numeric(year))
+> 
+> gdp <- gdp %>%
++   mutate(continent = countrycode(iso3, "iso3c", "continent"))
+> 
+> gdp <- gdp %>%
++   mutate(global_south = case_when(
++     continent %in% c("Africa", "South America") ~ "South",
++     continent %in% c("Europe", "North America") ~ "North",
++     continent == "Asia" ~ "South",  # Most of Asia classified Global South
++     continent == "Oceania" ~ "North",
++     TRUE ~ NA_character_
++   ))
+> 
+> q1 <- gdp %>%
++   filter(year %in% c(1960, 1980, 2000, 2019)) %>%
++   filter(!is.na(gdp_pc), !is.na(global_south))
+> 
+> ggplot(q1, aes(x = global_south, y = gdp_pc)) +
++   geom_boxplot() +
++   scale_y_log10() +
++   facet_wrap(~year) +
++   labs(
++     title = "GDP per Capita: Global North vs South",
++     x = "",
++     y = "GDP per Capita (log scale)"
++   )
+> 
+> q1 %>%
++   group_by(year) %>%
++   summarise(
++     p_value = t.test(gdp_pc ~ global_south)$p.value
++   )
+# A tibble: 4 × 2
+   year     p_value
+  <dbl>       <dbl>
+1  1960 0.000000288
+2  1980 0.00308    
+3  2000 0.0000105  
+4  2019 0.00000190 
+> 
+> ggplot(q1, aes(x = global_south, y = gdp_pc)) +
++   geom_boxplot() +
++   scale_y_log10() +
++   facet_wrap(~year) +
++   labs(
++     title = "GDP per Capita: Global North vs South",
++     x = "",
++     y = "GDP per Capita (log scale)"
++   )
+> 
+> q1 %>%
++   group_by(year) %>%
++   summarise(
++     p_value = t.test(gdp_pc ~ global_south)$p.value
++   )
+# A tibble: 4 × 2
+   year     p_value
+  <dbl>       <dbl>
+1  1960 0.000000288
+2  1980 0.00308    
+3  2000 0.0000105  
+4  2019 0.00000190 
+> q1 %>%
++   group_by(year, global_south) %>%
++   summarise(mean_gdp = mean(gdp_pc, na.rm = TRUE))
+`summarise()` has regrouped the output.
+ℹ Summaries were computed grouped by year and global_south.
+ℹ Output is grouped by year.
+ℹ Use `summarise(.groups = "drop_last")` to silence this message.
+ℹ Use `summarise(.by = c(year, global_south))` for per-operation grouping
+  (`?dplyr::dplyr_by`) instead.
+# A tibble: 8 × 3
+# Groups:   year [4]
+   year global_south mean_gdp
+  <dbl> <chr>           <dbl>
+1  1960 North           1204.
+2  1960 South            201.
+3  1980 North           8750.
+4  1980 South           3571.
+5  2000 North          14757.
+6  2000 South           3759.
+7  2019 North          33771.
+8  2019 South           8872.
+> library(tidyverse)
+> library(countrycode)
+> library(rnaturalearth)
+> 
+> # Load CSV
+> gdp_raw <- read_csv("WB_WDI_NY_GDP_PCAP_CD.csv")
+
+[1mindexing[0m [34mWB_WDI_NY_GDP_PCAP_CD.csv[0m [================--------] [32m2.15GB/s[0m, eta: [36m 0s[0m
+[1mindexing[0m [34mWB_WDI_NY_GDP_PCAP_CD.csv[0m [======================] [32m418.08MB/s[0m, eta: [36m 0s[0m
+                                                                                                                   
+Rows: 14561 Columns: 43
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (39): STRUCTURE, STRUCTURE_ID, ACTION, FREQ, REF_AREA, INDICATOR, SEX, A...
+dbl  (4): TIME_PERIOD, DECIMALS, UNIT_MULT, OBS_VALUE
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> 
+> # Keep only relevant columns
+> gdp <- gdp_raw %>%
++   select(
++     iso3 = REF_AREA,
++     country = REF_AREA_LABEL,
++     year = TIME_PERIOD,
++     gdp_pc = OBS_VALUE
++   ) %>%
++   mutate(year = as.numeric(year))
+> 
+> world_map <- map_data("world")
+> 
+> country_centers <- world_map %>%
++   group_by(region) %>%
++   summarise(latitude = mean(lat, na.rm = TRUE))
+> 
+> country_centers <- country_centers %>%
++   mutate(
++     iso3 = countrycode(region, "country.name", "iso3c")
++   ) %>%
++   select(iso3, latitude)
+> 
+> gdp <- gdp %>%
++   left_join(country_centers, by = "iso3")
+> 
+> gdp <- gdp %>%
++   mutate(global_south = ifelse(latitude < 0, "South", "North"))
+> 
+> q1 <- gdp %>%
++   filter(year %in% c(1960, 1980, 2000, 2019)) %>%
++   filter(!is.na(gdp_pc), !is.na(global_south))
+> 
+> q1 <- gdp %>%
++   filter(year %in% c(1960, 1980, 2000, 2019)) %>%
++   filter(!is.na(gdp_pc), !is.na(global_south))
+> 
+> gdp <- gdp_raw %>%
++   select(
++     iso3 = REF_AREA,
++     country = REF_AREA_LABEL,
++     year = TIME_PERIOD,
++     gdp_pc = OBS_VALUE
++   ) %>%
++   mutate(year = as.numeric(year))
+> 
+> gdp <- gdp %>%
++   mutate(continent = countrycode(iso3, "iso3c", "continent"))
+> 
+> gdp <- gdp %>%
++   mutate(global_south = case_when(
++     continent %in% c("Africa", "South America") ~ "South",
++     continent %in% c("Europe", "North America") ~ "North",
++     continent == "Asia" ~ "South",  # Most of Asia classified Global South
++     continent == "Oceania" ~ "North",
++     TRUE ~ NA_character_
++   ))
+> 
+> q1 <- gdp %>%
++   filter(year %in% c(1960, 1980, 2000, 2019)) %>%
++   filter(!is.na(gdp_pc), !is.na(global_south))
+> 
+> ggplot(q1, aes(x = global_south, y = gdp_pc)) +
++   geom_boxplot() +
++   scale_y_log10() +
++   facet_wrap(~year) +
++   labs(
++     title = "GDP per Capita: Global North vs South",
++     x = "",
++     y = "GDP per Capita (log scale)"
++   )
+> 
+> q1 %>%
++   group_by(year) %>%
++   summarise(
++     p_value = t.test(gdp_pc ~ global_south)$p.value
++   )
+# A tibble: 4 × 2
+   year     p_value
+  <dbl>       <dbl>
+1  1960 0.000000288
+2  1980 0.00308    
+3  2000 0.0000105  
+4  2019 0.00000190 
+> 
+> ggplot(q1, aes(x = global_south, y = gdp_pc)) +
++   geom_boxplot() +
++   scale_y_log10() +
++   facet_wrap(~year) +
++   labs(
++     title = "GDP per Capita: Global North vs South",
++     x = "",
++     y = "GDP per Capita (log scale)"
++   )
+> 
+> q1 %>%
++   group_by(year, global_south) %>%
++   summarise(mean_gdp = mean(gdp_pc, na.rm = TRUE))
+`summarise()` has regrouped the output.
+ℹ Summaries were computed grouped by year and global_south.
+ℹ Output is grouped by year.
+ℹ Use `summarise(.groups = "drop_last")` to silence this message.
+ℹ Use `summarise(.by = c(year, global_south))` for per-operation grouping
+  (`?dplyr::dplyr_by`) instead.
+# A tibble: 8 × 3
+# Groups:   year [4]
+   year global_south mean_gdp
+  <dbl> <chr>           <dbl>
+1  1960 North           1204.
+2  1960 South            201.
+3  1980 North           8750.
+4  1980 South           3571.
+5  2000 North          14757.
+6  2000 South           3759.
+7  2019 North          33771.
+8  2019 South           8872.
+> 
+> 
