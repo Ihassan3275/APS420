@@ -1,0 +1,94 @@
+> library(tidyverse)
+> 
+> data <- read.csv("WB_WDI_SP_DYN_LE00_IN.csv")
+> 
+> # Keep only necessary columns
+> data_clean <- data %>%
++   select(REF_AREA_LABEL, TIME_PERIOD, OBS_VALUE) %>%
++   rename(
++     Country = REF_AREA_LABEL,
++     Year = TIME_PERIOD,
++     LifeExp = OBS_VALUE
++   )
+> 
+> # Convert types (wasn't working without this)
+> data_clean$Year <- as.numeric(data_clean$Year)
+> data_clean$LifeExp <- as.numeric(data_clean$LifeExp)
+> 
+> # Remove missing values
+> data_clean <- data_clean %>%
++   filter(!is.na(LifeExp))
+> 
+> # Exclude Central African Republic
+> data_clean <- data_clean %>%
++   filter(Country != "Central African Republic")
+> 
+> # 1-year changes
+> 
+> data_diff <- data_clean %>%
++   arrange(Country, Year) %>%
++   group_by(Country) %>%
++   mutate(YearlyChange = LifeExp - lag(LifeExp)) %>%
++   ungroup()
+> 
+> 
+> # Top 5 Improvements
+> 
+> top_improvements <- data_diff %>%
++   filter(!is.na(YearlyChange)) %>%
++   arrange(desc(YearlyChange)) %>%
++   slice(1:5)
+> 
+> top_improvements
+# A tibble: 5 × 4
+  Country                      Year LifeExp YearlyChange
+  <chr>                       <dbl>   <dbl>        <dbl>
+1 Cambodia                     1979    41.1         29.5
+2 Rwanda                       1995    41.5         29.4
+3 Federal Republic of Somalia  1993    50.6         25.5
+4 South Sudan                  1999    44.5         25.5
+5 Lebanon                      1977    60.3         23.9
+> 
+> 
+> # top 5 Declines
+> 
+> top_declines <- data_diff %>%
++   filter(!is.na(YearlyChange)) %>%
++   arrange(YearlyChange) %>%
++   slice(1:5)
+> 
+> top_declines
+# A tibble: 5 × 4
+  Country                      Year LifeExp YearlyChange
+  <chr>                       <dbl>   <dbl>        <dbl>
+1 Rwanda                       1994    12.2        -30.8
+2 Cambodia                     1975    12.8        -26.5
+3 Federal Republic of Somalia  1991    25.4        -21.5
+4 Lebanon                      1976    36.4        -21.3
+5 Bosnia and Herzegovina       1992    52.0        -19.8
+> 
+> # Sub-Saharan Africa vs World
+> 
+> ssa_world <- data_clean %>%
++   filter(Country %in% c("Sub-Saharan Africa", "World"))
+> 
+> # line chart
+> ggplot(ssa_world, aes(x = Year, y = LifeExp, color = Country)) +
++   geom_line(linewidth = 1) +
++   theme_minimal() +
++   labs(title = "Life Expectancy: Sub-Saharan Africa vs World",
++        y = "Life Expectancy (years)")
+> 
+> # bar chart
+> ssa <- ssa_world %>% filter(Country == "Sub-Saharan Africa")
+> world <- ssa_world %>% filter(Country == "World")
+> 
+> diff_data <- merge(ssa, world, by = "Year")
+> diff_data$Difference <- diff_data$LifeExp.y - diff_data$LifeExp.x
+> 
+> ggplot(diff_data, aes(x = Year, y = Difference)) +
++   geom_col() +
++   theme_minimal() +
++   labs(title = "Gap in Life Expectancy (World - SSA)",
++        y = "Difference (years)")
+> 
