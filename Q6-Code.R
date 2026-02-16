@@ -1,0 +1,61 @@
+library(tidyverse)
+library(ggrepel)
+library(WDI)
+
+# loading files
+gdp_data <- read.csv("WB_WDI_NY_GDP_PCAP_CD.csv")
+tech_data <- read.csv("WB_WDI_TX_VAL_TECH_MF_ZS.csv")
+
+# latest available year for each country :)
+get_latest <- function(df) {
+  df %>%
+    filter(!is.na(OBS_VALUE)) %>%
+    group_by(REF_AREA) %>%
+    filter(TIME_PERIOD == max(TIME_PERIOD)) %>%
+    select(Code = REF_AREA, Country = REF_AREA_LABEL, Value = OBS_VALUE) %>%
+    distinct(Code, .keep_all = TRUE)
+}
+
+gdp_latest <- get_latest(gdp_data) %>% rename(GDP_PC = Value)
+tech_latest <- get_latest(tech_data) %>% rename(Tech_Exports = Value)
+
+# population data
+pop_data <- WDI(indicator = "SP.POP.TOTL", start = 2022, end = 2023) %>%
+  group_by(iso3c) %>%
+  filter(year == max(year)) %>%
+  select(Code = iso3c, Population = SP.POP.TOTL)
+
+# merging datasets (both files)
+df_final <- gdp_latest %>%
+  inner_join(tech_latest, by = "Code") %>%
+  inner_join(pop_data, by = "Code") %>%
+  select(-Country.y) %>%
+  rename(Country = Country.x)
+
+# I'm splitting into groups as defined below
+# Grp A: Low/Mid Income, High Tech (>1M Pop)
+high_performers <- c("VNM", "PHL", "MYS")
+
+# Grp B: Wealthy, Low Tech
+low_tech_wealthy <- c("AUS", "NOR")
+
+# Bubble plot(s) - used some help from Stackexchange for this one :)
+ggplot(df_final, aes(x = GDP_PC, y = Tech_Exports)) +
+  geom_point(aes(size = Population), alpha = 0.5, color = "steelblue") +
+  # Group A
+  geom_point(data = filter(df_final, Code %in% high_performers), 
+             aes(size = Population), shape = 21, color = "red", stroke = 1.5) +
+  # Group B
+  geom_point(data = filter(df_final, Code %in% low_tech_wealthy), 
+             aes(size = Population), shape = 21, color = "darkgreen", stroke = 1.5) +
+  # annotations
+  geom_text_repel(data = filter(df_final, Code %in% c(high_performers, low_tech_wealthy)),
+                  aes(label = Country), box.padding = 1) +
+  scale_size_continuous(range = c(2, 20), labels = scales::comma) +
+  scale_x_log10(labels = scales::dollar_format()) +
+  labs(title = "Wealth vs. High-Tech Export Reliance",
+       subtitle = "Bubble size represents country population",
+       x = "GDP per Capita (Current US$, Log Scale)",
+       y = "High-Tech Exports (% of Manufactured Exports)",
+       size = "Population") +
+  theme_minimal()
