@@ -1,0 +1,142 @@
+> 
+> 
+> library(ggplot2)
+> library(dplyr)
+> library(readr)
+> library(gridExtra)
+> 
+> innovation <- read_csv("WEF_GCIHH_GCI_C_12.csv")
+
+[1mindexing[0m [34mWEF_GCIHH_GCI_C_12.csv[0m [=========================] [32m754.06MB/s[0m, eta: [36m 0s[0m
+                                                                                                                   
+Rows: 3048 Columns: 38
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (33): STRUCTURE, STRUCTURE_ID, ACTION, FREQ, FREQ_LABEL, REF_AREA, REF_A...
+dbl  (4): TIME_PERIOD, OBS_VALUE, UNIT_MULT, TIME_FORMAT
+lgl  (1): COMMENT_OBS
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> institutions <- read_csv("WEF_GCIHH_GCI_A_01.csv")
+
+[1mindexing[0m [34mWEF_GCIHH_GCI_A_01.csv[0m [===========================] [32m2.15GB/s[0m, eta: [36m 0s[0m
+                                                                                                                   
+Rows: 3048 Columns: 38
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (33): STRUCTURE, STRUCTURE_ID, ACTION, FREQ, FREQ_LABEL, REF_AREA, REF_A...
+dbl  (4): TIME_PERIOD, OBS_VALUE, UNIT_MULT, TIME_FORMAT
+lgl  (1): COMMENT_OBS
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> policy_stability <- read_csv("WEF_GCI_EOSQ434.csv")
+
+[1mindexing[0m [34mWEF_GCI_EOSQ434.csv[0m [==============================] [32m2.15GB/s[0m, eta: [36m 0s[0m
+                                                                                                                   
+Rows: 965 Columns: 38
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (33): STRUCTURE, STRUCTURE_ID, ACTION, FREQ, FREQ_LABEL, REF_AREA, REF_A...
+dbl  (4): TIME_PERIOD, OBS_VALUE, UNIT_MULT, TIME_FORMAT
+lgl  (1): COMMENT_OBS
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> legal_efficiency <- read_csv("WEF_GCI_EOSQ040.csv")
+
+[1mindexing[0m [34mWEF_GCI_EOSQ040.csv[0m [==============================] [32m2.15GB/s[0m, eta: [36m 0s[0m
+                                                                                                                   
+Rows: 1236 Columns: 38
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (33): STRUCTURE, STRUCTURE_ID, ACTION, FREQ, FREQ_LABEL, REF_AREA, REF_A...
+dbl  (4): TIME_PERIOD, OBS_VALUE, UNIT_MULT, TIME_FORMAT
+lgl  (1): COMMENT_OBS
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> nt_barriers <- read_csv("WEF_GCI_EOSQ096.csv")
+
+[1mindexing[0m [34mWEF_GCI_EOSQ096.csv[0m [==============================] [32m2.15GB/s[0m, eta: [36m 0s[0m
+                                                                                                                   
+Rows: 1236 Columns: 38
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (33): STRUCTURE, STRUCTURE_ID, ACTION, FREQ, FREQ_LABEL, REF_AREA, REF_A...
+dbl  (4): TIME_PERIOD, OBS_VALUE, UNIT_MULT, TIME_FORMAT
+lgl  (1): COMMENT_OBS
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> 
+> # common data year is 2017 for all datasets so I'm gonna focus on it
+> clean_data <- function(df, col_name) {
++   df %>%
++     filter(TIME_PERIOD == 2017) %>%
++     # Select rows where Unit Measure is "1-7 scale" or "Index" to ensure consistent scale
++     filter(UNIT_MEASURE %in% c("1_TO_7", "IX")) %>% 
++     select(Country = REF_AREA_LABEL, Value = OBS_VALUE) %>%
++     rename(!!col_name := Value)
++ }
+> 
+> df_innov <- clean_data(innovation, "Innovation")
+> df_inst <- clean_data(institutions, "Institutions")
+> df_pol <- clean_data(policy_stability, "Policy_Stability")
+> df_leg <- clean_data(legal_efficiency, "Legal_Framework")
+> df_ntb <- clean_data(nt_barriers, "Non_Tariff_Barriers")
+> 
+> # merge
+> merged_df <- df_innov %>%
++   inner_join(df_inst, by = "Country") %>%
++   inner_join(df_pol, by = "Country") %>%
++   inner_join(df_leg, by = "Country") %>%
++   inner_join(df_ntb, by = "Country")
+> 
+> 
+> cor_matrix <- cor(merged_df %>% select_if(is.numeric))
+> print(cor_matrix)
+                    Innovation Institutions Policy_Stability Legal_Framework
+Innovation           1.0000000    0.8497992        0.7285537       0.7709676
+Institutions         0.8497992    1.0000000        0.8913062       0.9049082
+Policy_Stability     0.7285537    0.8913062        1.0000000       0.8629524
+Legal_Framework      0.7709676    0.9049082        0.8629524       1.0000000
+Non_Tariff_Barriers  0.5848691    0.6598513        0.5892158       0.5001268
+                    Non_Tariff_Barriers
+Innovation                    0.5848691
+Institutions                  0.6598513
+Policy_Stability              0.5892158
+Legal_Framework               0.5001268
+Non_Tariff_Barriers           1.0000000
+> 
+> create_plot <- function(data, x_var, title, corr_val) {
++   ggplot(data, aes_string(x = x_var, y = "Innovation")) +
++     geom_point(aes(color = Innovation), size = 3, alpha = 0.7) + # Color by Innovation score as proxy for income if group missing
++     geom_smooth(method = "lm", color = "black", linetype = "dashed", se = FALSE) +
++     labs(title = paste0(title, "\n(r = ", round(corr_val, 2), ")"), 
++          x = paste(x_var, "(1-7 Scale)"), 
++          y = "Innovation (1-7 Scale)") +
++     scale_color_viridis_c() +
++     theme_minimal()
++ }
+> 
+> # plots
+> p1 <- create_plot(merged_df, "Institutions", "Innovation vs Institutions", cor(merged_df$Innovation, merged_df$Institutions))
+Warning message:
+`aes_string()` was deprecated in ggplot2 3.0.0.
+ℹ Please use tidy evaluation idioms with `aes()`.
+ℹ See also `vignette("ggplot2-in-packages")` for more information.
+This warning is displayed once per session.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated. 
+> p2 <- create_plot(merged_df, "Policy_Stability", "Innovation vs Policy Stability", cor(merged_df$Innovation, merged_df$Policy_Stability))
+> p3 <- create_plot(merged_df, "Legal_Framework", "Innovation vs Legal Framework", cor(merged_df$Innovation, merged_df$Legal_Framework))
+> p4 <- create_plot(merged_df, "Non_Tariff_Barriers", "Innovation vs Non-Tariff Barriers", cor(merged_df$Innovation, merged_df$Non_Tariff_Barriers))
+> 
+> grid.arrange(p1, p2, p3, p4, ncol = 2)
+`geom_smooth()` using formula = 'y ~ x'
+`geom_smooth()` using formula = 'y ~ x'
+`geom_smooth()` using formula = 'y ~ x'
+`geom_smooth()` using formula = 'y ~ x'
+> 
