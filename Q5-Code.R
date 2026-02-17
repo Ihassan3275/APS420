@@ -13,7 +13,6 @@ nt_barriers <- read_csv("WEF_GCI_EOSQ096.csv")
 clean_data <- function(df, col_name) {
   df %>%
     filter(TIME_PERIOD == 2017) %>%
-    # Select rows where Unit Measure is "1-7 scale" or "Index" to ensure consistent scale
     filter(UNIT_MEASURE %in% c("1_TO_7", "IX")) %>% 
     select(Country = REF_AREA_LABEL, Value = OBS_VALUE) %>%
     rename(!!col_name := Value)
@@ -38,7 +37,7 @@ print(cor_matrix)
 
 create_plot <- function(data, x_var, title, corr_val) {
   ggplot(data, aes_string(x = x_var, y = "Innovation")) +
-    geom_point(aes(color = Innovation), size = 3, alpha = 0.7) + # Color by Innovation score as proxy for income if group missing
+    geom_point(aes(color = Innovation), size = 3, alpha = 0.7) + 
     geom_smooth(method = "lm", color = "black", linetype = "dashed", se = FALSE) +
     labs(title = paste0(title, "\n(r = ", round(corr_val, 2), ")"), 
          x = paste(x_var, "(1-7 Scale)"), 
